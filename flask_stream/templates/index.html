@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<title>Server Send Events Demo</title>
+<style>
+  #data {
+    text-align: center;
+  }
+</style>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+  <!-- The magical part is that whenever the connection is closed, the browser will automatically reconnect to the source after ~3 seconds. -->
+  if (!!window.EventSource) {
+    var source = new EventSource('/');
+    <!-- The following must be equivalent to source.addEventListener("message",... -->
+    source.onmessage = function(e) {
+      $("#data").text(e.data);
+    }
+  }
+</script>
+<script>
+  <!-- The magical part is that whenever the connection is closed, the browser will automatically reconnect to the source after ~3 seconds. -->
+  if (!!window.EventSource) {
+    var source = new EventSource('/test1');
+    <!-- The following must be equivalent to source.addEventListener("message",... -->
+    source.onmessage = function(e) {
+      $("#data2").text(e.data);
+    }
+  }
+</script>
+<div id="data">nothing received yet</div>
+<div id="data2">nothing received yet</div>
